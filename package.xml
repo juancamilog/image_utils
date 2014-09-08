@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>image_utils</name>
+  <version>0.0.0</version>
+  <description>The image_utils package</description>
+
+  <maintainer email="juancamilog@gmail.com">juancamilog</maintainer>
+
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>pluginlib</build_depend>
+  <build_depend>camera_calibration_parsers</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>image_transport</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>pluginlib</run_depend>
+  <run_depend>camera_calibration_parsers</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>nodelet</run_depend>
+  <run_depend>image_transport</run_depend>
+
+
+  <export>
+      <nodelet plugin="${prefix}/plugins/nodelet_plugins.xml" />
+  </export>
+</package>

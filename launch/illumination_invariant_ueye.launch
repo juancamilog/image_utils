@@ -1,0 +1,12 @@
+<launch>
+    <arg name="camera_name" default="camera" />
+
+    <include file="$(find ueye_cam)/launch/rgb8.launch">
+    </include>
+
+    <node pkg="nodelet" type="nodelet" name="illumination_invariant_filter" args="load image_utils/IlluminationInvariantFilter nodelet_manager" output="screen">
+       <remap from="image_raw" to="/$(arg camera_name)/image_raw" /> 
+       <remap from="image_mono" to="/$(arg camera_name)/image_mono" /> 
+       <remap from="image_color" to="/$(arg camera_name)/image_color" /> 
+    </node>
+</launch>

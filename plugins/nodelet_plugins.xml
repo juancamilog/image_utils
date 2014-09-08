@@ -1,0 +1,7 @@
+<library path="lib/libillumination_invariant_filter_nodelet">
+  <class name="image_utils/IlluminationInvariantFilter" type="image_utils::IlluminationInvariantFilter" base_class_type="nodelet::Nodelet">
+  <description>
+   Transforms an image into a illumination invariant space.
+  </description>
+  </class>
+</library>
