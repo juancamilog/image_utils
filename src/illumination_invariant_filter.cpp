@@ -46,17 +46,18 @@ namespace image_utils
         result = cv::Mat::zeros(image.rows,image.cols, CV_8UC1);
         static const float c = cos(2.3);
         static const float s = sin(2.3);
+        static const float one_third = 1.0/3.0;
         float R=0,G=0,B=0;
         float RGB=0,r=0,b=0;
         int cols = image.cols;
         int rows = image.rows;
-        //float* result_ptr = (float*)tmp.data;
         uchar* result_ptr = (uchar*)result.data;
 
         for(int i = 0; i < rows*cols; i++) {
             R = (uchar) image.data[i*3];
             G = (uchar) image.data[i*3 + 1];
             B = (uchar) image.data[i*3 + 2];
+
             R =  0.998800*R - 0.066900*G - 0.000100*B;
             G = -0.049700*R + 0.988600*G - 0.000100*B;
             B =  0.004300*R - 0.134600*G + 1.000000*B;
@@ -65,20 +66,16 @@ namespace image_utils
             if ( G > 245 ){ G = 245; } else if ( G < 10 ){ G = 10; }
             if ( B > 245 ){ B = 245; } else if ( B < 10 ){ B = 10; }
 
-            /*
             RGB = R*G*B;
-            b = fasterlog(R) - (0.33333333)*fasterlog(RGB);
-            r = fasterlog(B) - (0.33333333)*fasterlog(RGB);
-            */
-
-            b = fasterlog(R)-fasterlog(G);
-            r = fasterlog(B)-fasterlog(G);
+            b = fasterlog(R) - one_third*fasterlog(RGB);
+            r = fasterlog(B) - one_third*fasterlog(RGB);
 
             // magic numbers for linear stretching of the dynamic range
             *result_ptr = (uchar)(32.0*(r*c+b*s) +128.0);
             result_ptr++;
         }
-        //normalize(result,result,1,255,cv::NORM_MINMAX,CV_8UC1);
+        int ksize=5;
+        cv::GaussianBlur(result,result,cv::Size(ksize,ksize),0,0);
     }
 }
 
